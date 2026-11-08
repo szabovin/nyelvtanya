@@ -2,6 +2,7 @@
 // [kategória, helyes alak, hibás alak, (megjegyzés: b:alapszó, lj:igető)]
 // Minden helyes alakot és minden hibás alakot lekérdeztünk az MTA helyesírási portálján
 // (helyesiras.mta.hu, tools/mta_check.py): a helyes alak „helyes”, a hibás „ismeretlen” lett.
+// Második forrásként a magyar Hunspell-szótár (Magyarispell) is mind a 140 helyes alakot elfogadta, és mind a 140 hibásat elutasította.
 // Kimaradt, ahol a hibás alak is létező szó (pl. csuklya – csukja, hely – hej, sújt – súlyt).
 const JLY_KAT = {
   allat: ['Állatok', '🐦'], noveny: ['Növények', '🌸'], termeszet: ['Természet', '🌊'], targy: ['Tárgyak', '🧺'],

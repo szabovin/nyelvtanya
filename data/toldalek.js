@@ -3,7 +3,7 @@
 // a toldalékok után „:típus:szerep” jön (k = képző, j = jel, r = rag).
 // Csak olyan szavak vannak benne, amelyekben a tő nem változik meg (nincs fa → fá-),
 // és a hasonulás sem mossa össze a határt (nincs kéz + vel → kézzel).
-// Minden szó helyesírását az MTA helyesírási portálja ellenőrizte (tools/mta_check.py).
+// Minden szó helyesírását az MTA helyesírási portálja és a magyar Hunspell-szótár is ellenőrizte (tools/).
 
 const SZEREP = {
   // képzők

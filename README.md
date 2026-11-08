@@ -31,9 +31,11 @@ A pontok neve tejesüveg 🥛; van kombószorzó, napi sorozat és rangok (Tanya
 
 ## Honnan tudjuk, hogy helyesek az adatok?
 
-- **J/LY:** minden szót és a hibás párját is lekérdeztük az MTA (HUN-REN) helyesírási portálján ([helyesiras.mta.hu](https://helyesiras.mta.hu)). Csak az maradt bent, ahol a helyes alak „helyes”, a hibás „ismeretlen”. Kimaradt minden pár, ahol a hibás alak is létező szó (csuklya – csukja, hely – hej, sújt – súlyt).
-- **Igeragozás:** a táblák az angol Wikiszótár ([en.wiktionary.org](https://en.wiktionary.org)) ragozási tábláiból jönnek, és minden alakot az MTA-portálon is lekérdeztünk. A „van” igét kézzel vettük fel, az alakjait szintén a portál ellenőrizte.
-- **Toldalékok:** a szóelemekre bontást kézzel készítettük az alsós nyelvtan fogalmai szerint (képző, jel, rag), a szavak helyesírását az MTA-portál ellenőrizte. Csak olyan szavak kerültek be, ahol a tő nem változik meg (nincs fa → fá-), és a hasonulás sem mossa össze a határokat.
+Minden szót két, egymástól független helyesírási forrás ellenőrzött: az MTA (HUN-REN) helyesírási portálja ([helyesiras.mta.hu](https://helyesiras.mta.hu)) és a magyar Hunspell-szótár (Magyarispell, ez van a LibreOffice-ban és a Firefoxban is).
+
+- **J/LY:** mind a 140 helyes alakot mindkét forrás elfogadta, és mind a 140 hibás párját mindkettő elutasította. Kimaradt minden pár, ahol a hibás alak is létező szó (csuklya – csukja, hely – hej, sújt – súlyt).
+- **Igeragozás:** a táblák az angol Wikiszótár ([en.wiktionary.org](https://en.wiktionary.org)) ragozási tábláiból jönnek, a „van” igét kézzel vettük fel. Mind az 1519 alakot elfogadta a Hunspell-szótár; az MTA-portál 1419-et helyesnek mondott, 100 múlt idejű alakra (pl. *mentem*, *kértünk*) pedig nem ad választ, ismeretlen alakot egyet sem jelzett.
+- **Toldalékok:** a szóelemekre bontást kézzel készítettük az alsós nyelvtan fogalmai szerint (képző, jel, rag), a szavak helyesírását mindkét forrás ellenőrizte. Csak olyan szavak kerültek be, ahol a tő nem változik meg (nincs fa → fá-), és a hasonulás sem mossa össze a határokat.
 
 Az ellenőrző szkriptek a `tools/` mappában vannak. Ha hibát találsz, nyiss egy issue-t.
 

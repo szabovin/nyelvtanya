@@ -19,7 +19,8 @@ dropped = sorted(f for v in d for k in d[v] for c in d[v][k] for f in c if f.rst
 print(len(out), 'ige; elhagyott változatok:', dropped)
 js = ('// Nyelvtanya – igeragozás (alanyi ragozás)\n'
       '// Forrás: az angol Wikiszótár (en.wiktionary.org) ragozási táblái, tools/wikt_ige.py; a „van” kézzel.\n'
-      '// Minden alakot lekérdeztünk az MTA helyesírási portálján is (tools/mta_check.py), az ott ismeretlen mellékváltozatok kimaradtak.\n'
+      '// Minden alakot lekérdeztünk az MTA helyesírási portálján (tools/mta_check.py) és a magyar Hunspell-szótárban (tools/hunspell_check.py) is.\n'
+      '// A portál 100 múlt idejű alakra nem ad választ (pl. mentem); ezeket a Hunspell-szótár erősítette meg. Ismeretlen alak nem volt.\n'
       '// Egy cella: az elfogadott alakok listája, az első a mutatott alak; a *-os régies alakot elfogadjuk, de nem mutatjuk.\n'
       'const IGE = ' + json.dumps(out, ensure_ascii=False, indent=0).replace('\n', '') + ';\n')
 open('../data/ige.js', 'w', encoding='utf-8').write(js)
