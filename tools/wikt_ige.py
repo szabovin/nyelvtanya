@@ -1,6 +1,6 @@
 # Igeragozási táblák letöltése az angol Wikiszótárból (en.wiktionary.org)
 # Kimenet: ige_wikt.json  {ige: {idő: [6 alak, mindegyik a változatok listája]}}
-import re, sys, json, time, urllib.parse, urllib.request
+import re, sys, json, time, urllib.error, urllib.parse, urllib.request
 sys.stdout.reconfigure(encoding='utf-8')
 UA = {'User-Agent': 'NyelvtanyaBot/0.1 (personal learning game)'}
 ROWS = {('indicative', 'present'): 'jelen', ('indicative', 'past'): 'mult',
@@ -28,12 +28,18 @@ def table(verb):
 
 if __name__ == '__main__':
     verbs = sys.argv[1:]
-    out = {}
+    try: out = json.load(open('ige_wikt.json', encoding='utf-8'))
+    except FileNotFoundError: out = {}
     for v in verbs:
+        if len(out.get(v, {})) == 4: continue
         try:
-            out[v] = table(v)
+            for proba in range(4):
+                try: out[v] = table(v); break
+                except urllib.error.HTTPError as e:
+                    if e.code != 429 or proba == 3: raise
+                    time.sleep(30)
             print(v, 'OK' if len(out[v]) == 4 else 'HIÁNYOS ' + str(list(out[v])), flush=True)
         except Exception as e:
             print(v, 'HIBA', e, flush=True)
-        time.sleep(0.5)
+        time.sleep(3)
     json.dump(out, open('ige_wikt.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
