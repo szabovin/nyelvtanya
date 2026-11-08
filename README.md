@@ -1,4 +1,4 @@
-# 🐄 Nyelvtanya
+# 🐮 Nyelvtanya
 
 Játékos nyelvtangyakorló 4. osztályosoknak, a felvételire készüléshez. A tanyán pajták vannak, mindegyikben egy-egy témakör; a kabala Riska, a tehén.
 Érintőképernyőn is kényelmesen játszható.

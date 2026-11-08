@@ -47,7 +47,7 @@
     // 1. Melyik a helyes? – két alak közül
     ketto(x, q) {
       const opts = shuffle([{ html: esc(x.w), ok: true }, { html: esc(x.bad), ok: false }]);
-      choice(q, q.tag('🐄 Melyik a helyes?') + `<p class="qtitle">Melyik szót írták le helyesen?</p>`,
+      choice(q, q.tag('✅ Melyik a helyes?') + `<p class="qtitle">Melyik szót írták le helyesen?</p>`,
         opts, () => why(x), 2, 'jly');
     },
     // 2. Pótold a hiányzó betűt – minden j/ly-os helyre
@@ -116,7 +116,7 @@
 
   registerModule({
     id: 'jly', name: 'J/LY pajta', emoji: '🐔', color: '#16a34a', barnColor: '#dc2626',
-    intro: 'Muu! Ebben a pajtában a j és az ly a főszereplő. Kiejtve egyformák, ezért meg kell jegyezni, melyik szóban melyik van. Ha jól válaszolsz, a szó szintet lép, és egyre nehezebb feladatban jön elő.',
+    intro: 'Ebben a pajtában a j és az ly a főszereplő. Kiejtve egyformák, ezért meg kell jegyezni, melyik szóban melyik van. Ha jól válaszolsz, a szó szintet lép, és egyre nehezebb feladatban jön elő.',
     kinds: ['ketto', 'potold', 'zap', 'valogat', 'kirako'],
     pts: { ketto: 10, potold: 12, zap: 14, valogat: 18, kirako: 20 },
     label: id => W[id].w,

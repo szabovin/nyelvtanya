@@ -87,7 +87,7 @@
   const has = t => W.filter(x => x.segs.some(g => g.tip === t)).map(x => x.id);
   registerModule({
     id: 'toldalek', name: 'Toldalékoló', emoji: '🐷', color: '#9333ea',
-    intro: 'Muu! A szavak darabokból állnak, mint egy kerítés. Elöl a tő, utána jönnek a toldalékok: a képző új szót csinál, a jel kicsit módosít rajta, a rag pedig a mondatba illeszti, és mindig a végén áll.',
+    intro: 'A szavak darabokból állnak, mint egy kerítés. Elöl a tő, utána jönnek a toldalékok: a képző új szót csinál, a jel kicsit módosít rajta, a rag pedig a mondatba illeszti, és mindig a végén áll.',
     kinds: ['tipus', 'to', 'szerep', 'vag', 'szinez'],
     pts: { tipus: 10, to: 12, szerep: 14, vag: 18, szinez: 20 },
     label: id => W[id].w,

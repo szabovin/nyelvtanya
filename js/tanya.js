@@ -27,7 +27,7 @@ function barnSVG(b) {
 function home() {
   if (!S.name) { show('s-name'); setTimeout(() => $('#nameinput').focus(), 50); return; }
   const ri = rankOf(S.milk), r = RANKS[ri], nx = RANKS[ri + 1];
-  $('#riska-says').textContent = `Szia, ${S.name}! ` + pick(['Muu! Jó, hogy itt vagy!', 'Melyik pajtába megyünk ma?', 'Már vártalak!', 'Gyakoroljunk egy kicsit!']);
+  $('#riska-says').textContent = `Szia, ${S.name}! ` + pick(['Jó, hogy itt vagy!', 'Melyik pajtába megyünk ma?', 'Már vártalak!', 'Gyakoroljunk egy kicsit!']);
   $('#h-milk').textContent = S.milk;
   $('#h-streak').textContent = liveStreak() + ' nap';
   $('#h-rank').textContent = r[2] + ' ' + r[1] + (nx ? ` · még ${nx[0] - S.milk} 🥛` : '');
@@ -42,7 +42,7 @@ function home() {
   }).join('');
   document.querySelectorAll('.barnbtn').forEach(el => el.onclick = () => {
     const b = BARNS.find(x => x.id === el.dataset.b);
-    if (!b.mods.length) { SND.moo(); modal(`<div class="center"><div class="cow">🐄</div><h2>Ez a pajta még épül!</h2><p class="hello">Hamarosan új feladatok költöznek ide. Muu!</p><button class="nextbtn" data-close>Rendben</button></div>`); return; }
+    if (!b.mods.length) { modal(`<div class="center"><div class="cow">${riska()}</div><h2>Ez a pajta még épül!</h2><p class="hello">Hamarosan új feladatok költöznek ide.</p><button class="nextbtn" data-close>Rendben</button></div>`); return; }
     openBarn(b.id);
   });
   show('s-farm');
@@ -52,7 +52,7 @@ function openBarn(id) {
   const b = BARNS.find(x => x.id === id) || barnOf(id);
   const mods = b.mods.map(modById).filter(Boolean);
   $('#barn-title').textContent = b.animal + ' ' + b.name;
-  $('#barn-intro').innerHTML = '🐄 ' + mods.map(m => esc(m.intro)).join('<br><br>');
+  $('#barn-intro').innerHTML = `<span class="cow sm" style="float:left;margin:0 12px 4px 0">${riska()}</span>` + mods.map(m => esc(m.intro)).join('<br><br>');
   $('#rooms').innerHTML = mods.map(m => `
     ${mods.length > 1 ? `<h3 style="grid-column:1/-1;margin:8px 0 -4px;font-size:24px">${m.emoji} ${esc(m.name)}</h3>` : ''}
     ${m.rooms.map(r => { const s = roomStats(m, r); return `<button class="room ${r.cls}" data-m="${m.id}" data-r="${r.id}">
@@ -77,7 +77,7 @@ function album(modId) {
 $('#namego').onclick = () => {
   const n = $('#nameinput').value.trim();
   if (!n) { $('#nameinput').focus(); return; }
-  S.name = n; save(); SND.moo(); home();
+  S.name = n; save(); SND.win(); home();
 };
 $('#nameinput').addEventListener('keydown', e => { if (e.key === 'Enter') $('#namego').click(); });
 $('#b-sound').onclick = () => { S.sound = !S.sound; save(); home(); };
@@ -105,4 +105,5 @@ $('#b-account').onclick = () => {
   modal(`<h2>👤 Fiók</h2><p>A Google-bejelentkezés még nincs beállítva ehhez a tanyához, ezért a haladás csak ezen a gépen, a böngészőben mentődik.</p><button class="nextbtn" data-close>Rendben</button>`);
 };
 
+document.querySelectorAll('.cow').forEach(el => el.innerHTML = riska());
 home();

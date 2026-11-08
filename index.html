@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Nyelvtanya</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐄</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐮</text></svg>">
 <style>
   :root {
     --sky1: #bae6fd; --sky2: #f0f9ff; --grass: #86efac; --grass2: #4ade80;
@@ -28,8 +28,9 @@
 
   /* ---------- Fejléc, kabala ---------- */
   .hero { text-align: center; margin-top: 4px; }
-  .cow { font-size: 80px; line-height: 1; display: inline-block; animation: bob 2.8s ease-in-out infinite; }
-  .cow.sm { font-size: 46px; }
+  .cow { display: inline-block; width: 96px; height: 96px; animation: bob 2.8s ease-in-out infinite; }
+  .cow.sm { width: 54px; height: 54px; }
+  .cow svg { width: 100%; height: 100%; display: block; overflow: visible; }
   @keyframes bob { 50% { transform: translateY(-7px) rotate(-5deg); } }
   h1 { font-size: 48px; margin: 2px 0 0; color: var(--barn); text-shadow: 0 3px 0 #fff, 0 5px 0 rgba(0,0,0,.08); letter-spacing: .5px; }
   .hello { font-size: 21px; color: var(--soft); margin: 4px 0 12px; font-weight: 600; }
@@ -168,7 +169,7 @@
 <!-- Belépés / név -->
 <section class="screen" id="s-name">
   <div class="namebox card" style="max-width:520px;margin:40px auto;text-align:center">
-    <div class="cow">🐄</div>
+    <div class="cow"></div>
     <h1>Nyelvtanya</h1>
     <p class="hello">Szia! Én Riska vagyok, a tanya tehene. Hogy hívnak?</p>
     <input id="nameinput" maxlength="20" placeholder="A neved" autocomplete="off">
@@ -181,7 +182,7 @@
 <section class="screen" id="s-farm">
   <div class="hero">
     <div class="bubble" id="riska-says">Muu! Jó, hogy itt vagy!</div>
-    <div class="cow">🐄</div>
+    <div class="cow"></div>
     <h1>Nyelvtanya</h1>
   </div>
   <div class="statsrow">
@@ -221,7 +222,7 @@
 <!-- Eredmény -->
 <section class="screen" id="s-result">
   <div class="result card">
-    <div class="cow">🐄</div>
+    <div class="cow"></div>
     <div class="bigstars" id="r-stars"></div>
     <h2 id="r-title"></h2>
     <p class="hello" id="r-text"></p>

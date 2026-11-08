@@ -77,7 +77,7 @@
   const room = (id, name, ic, cls, f) => ({ id, name, ic, cls, items: ITEMS.filter(f).map(x => x.id) });
   registerModule({
     id: 'ige', name: 'Igeragozó', emoji: '🐴', color: '#ea580c',
-    intro: 'Muu! Itt az igéket ragozzuk: ki csinálja, és mikor? Én olvasok, te olvastál, ő olvasna… Minden feladat után megmutatom a teljes ragozást.',
+    intro: 'Itt az igéket ragozzuk: ki csinálja, és mikor? Én olvasok, te olvastál, ő olvasna… Minden feladat után megmutatom a teljes ragozást.',
     kinds: ['ki', 'ido', 'ragozd', 'idogep', 'kirako'],
     pts: { ki: 10, ido: 10, ragozd: 14, idogep: 18, kirako: 20 },
     label: id => byId[id].v + ' (' + IDO[byId[id].t] + ')',

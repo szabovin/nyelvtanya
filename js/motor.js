@@ -11,10 +11,10 @@ function sample(a, n, not = []) { return shuffle(a.filter(x => !not.includes(x))
 const MASTER = 6;
 const RANKS = [
   [0, 'Tanyasi csemete', '🌱'], [150, 'Kiscsibe', '🐣'], [400, 'Kecskegida', '🐐'], [800, 'Bárányka', '🐑'],
-  [1400, 'Malackirály', '🐷'], [2200, 'Csikós', '🐴'], [3200, 'Tanyagazda', '🧑‍🌾'], [4500, 'Riska barátja', '🐄'],
+  [1400, 'Malackirály', '🐷'], [2200, 'Csikós', '🐴'], [3200, 'Tanyagazda', '🧑‍🌾'], [4500, 'Riska barátja', '🐮'],
   [6500, 'Nyelvtanya-mester', '👑']
 ];
-const PRAISE = ['Muu-szuper!', 'Telitalálat!', 'Ügyes vagy!', 'Pontosan!', 'Nagyszerű!', 'Bravó!', 'Hibátlan!', 'Így kell ezt!'];
+const PRAISE = ['Telitalálat!', 'Ügyes vagy!', 'Pontosan!', 'Nagyszerű!', 'Bravó!', 'Hibátlan!', 'Így kell ezt!'];
 const OOPS = ['Majdnem!', 'Semmi baj!', 'Nem egészen...', 'Hoppá!'];
 
 // ---------- Mentés ----------
@@ -61,6 +61,34 @@ function bumpDay() {
 function liveStreak() { return (S.lastDay === dayStr(new Date()) || S.lastDay === dayStr(new Date(Date.now() - 864e5))) ? S.streak : 0; }
 function rankOf(x) { let i = 0; while (i + 1 < RANKS.length && x >= RANKS[i + 1][0]) i++; return i; }
 
+// ---------- Riska, a kabala: szemből rajzolt, kicsit kockafejű tehén ----------
+function riska() {
+  return `<svg viewBox="0 0 120 120" class="riska" role="img" aria-label="Riska, a tehén">
+    <path d="M30 26 C20 22 16 12 20 4 C26 12 32 14 38 18 Z" fill="#fde68a" stroke="#78350f" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M90 26 C100 22 104 12 100 4 C94 12 88 14 82 18 Z" fill="#fde68a" stroke="#78350f" stroke-width="2.5" stroke-linejoin="round"/>
+    <ellipse cx="17" cy="42" rx="15" ry="8" transform="rotate(-18 17 42)" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+    <ellipse cx="18" cy="42" rx="8" ry="4" transform="rotate(-18 18 42)" fill="#f9a8d4"/>
+    <ellipse cx="103" cy="42" rx="15" ry="8" transform="rotate(18 103 42)" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+    <ellipse cx="102" cy="42" rx="8" ry="4" transform="rotate(18 102 42)" fill="#f9a8d4"/>
+    <clipPath id="riska-fej"><rect x="27" y="16" width="66" height="70" rx="16"/></clipPath>
+    <rect x="27" y="16" width="66" height="70" rx="16" fill="#fff"/>
+    <g clip-path="url(#riska-fej)" fill="#1f2937">
+      <path d="M27 16 H56 C58 26 50 34 40 36 C32 38 28 46 27 52 Z"/>
+      <path d="M93 54 C84 52 78 60 82 70 C85 78 93 78 93 78 Z"/>
+    </g>
+    <rect x="27" y="16" width="66" height="70" rx="16" fill="none" stroke="#1f2937" stroke-width="3"/>
+    <path d="M52 17 C55 10 60 12 60 17 C61 11 67 11 68 17" fill="#fff" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="46" cy="46" r="9" fill="#fff" stroke="#1f2937" stroke-width="2.5"/>
+    <circle cx="74" cy="46" r="9" fill="#fff" stroke="#1f2937" stroke-width="2.5"/>
+    <circle cx="47.5" cy="47.5" r="5" fill="#1f2937"/><circle cx="75.5" cy="47.5" r="5" fill="#1f2937"/>
+    <circle cx="49" cy="45.5" r="1.8" fill="#fff"/><circle cx="77" cy="45.5" r="1.8" fill="#fff"/>
+    <rect x="22" y="64" width="76" height="40" rx="18" fill="#fbcfe8" stroke="#1f2937" stroke-width="3"/>
+    <ellipse cx="45" cy="78" rx="5" ry="7" fill="#be185d"/><ellipse cx="75" cy="78" rx="5" ry="7" fill="#be185d"/>
+    <path d="M50 93 Q60 99 70 93" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="60" cy="112" r="7" fill="#f59e0b" stroke="#92400e" stroke-width="2.5"/><circle cx="60" cy="114" r="2" fill="#92400e"/>
+  </svg>`;
+}
+
 // ---------- Hang és felolvasás ----------
 let AC;
 function tone(freqs, dur = .12, type = 'sine', gap = .1, vol = .15) {
@@ -78,8 +106,7 @@ function tone(freqs, dur = .12, type = 'sine', gap = .1, vol = .15) {
 }
 const SND = {
   ok: () => tone([660, 880], .12), bad: () => tone([300, 220], .18, 'triangle', .15, .12),
-  tap: () => tone([520], .05, 'sine', 0, .06), win: () => tone([523, 659, 784, 1047], .15, 'sine', .12),
-  moo: () => tone([180, 150], .35, 'sawtooth', .3, .05)
+  tap: () => tone([520], .05, 'sine', 0, .06), win: () => tone([523, 659, 784, 1047], .15, 'sine', .12)
 };
 let HUV = null;
 function initVoice() { try { HUV = speechSynthesis.getVoices().find(v => /^hu/i.test(v.lang)) || null; } catch (e) {} }
@@ -229,7 +256,7 @@ function endRound() {
   const goodFirst = first - Q.missed.length;
   const stars = goodFirst >= first ? 3 : goodFirst >= first * .7 ? 2 : goodFirst >= first * .4 ? 1 : 0;
   $('#r-stars').textContent = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
-  $('#r-title').textContent = stars === 3 ? 'Hibátlan kör! Muuu! 🎉' : stars === 2 ? 'Nagyon ügyes voltál!' : stars === 1 ? 'Szép munka, gyakoroljunk még!' : 'Semmi baj, így tanulunk!';
+  $('#r-title').textContent = stars === 3 ? 'Hibátlan kör! 🎉' : stars === 2 ? 'Nagyon ügyes voltál!' : stars === 1 ? 'Szép munka, gyakoroljunk még!' : 'Semmi baj, így tanulunk!';
   $('#r-text').textContent = `${goodFirst} / ${first} elsőre jó · +${Q.score} tejesüveg 🥛`;
   $('#r-list').innerHTML = Q.missed.length
     ? `<p class="hint" style="margin-top:4px">Ezeket érdemes még gyakorolni:</p><p style="font-size:22px;font-weight:800">${Q.missed.map(id => esc(Q.mod.label(id))).join(' · ')}</p>`
