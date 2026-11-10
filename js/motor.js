@@ -195,7 +195,11 @@ function startRound(modId, roomId) {
   show('s-quiz'); nextQ();
 }
 
-function kindFor(mod, id) { const l = Math.max(1, Math.min(5, lvl(mod.id, id) || 1)); return mod.kinds[l === MASTER ? 4 : l - 1]; }
+// A modul saját választója (pickKind) szintenként több feladattípus közül sorsolhat, hogy ne legyen egyhangú
+function kindFor(mod, id) {
+  const l = Math.max(1, Math.min(5, lvl(mod.id, id) || 1));
+  return mod.pickKind ? pick(mod.pickKind[l - 1]) : mod.kinds[l - 1];
+}
 
 function nextQ() {
   if (Q.i >= Q.list.length) return endRound();

@@ -71,6 +71,30 @@
       const other = shuffle(allForms(x.v).map(o => o.f).join('').match(/dzs|cs|dz|gy|ly|ny|sz|ty|zs|./g)).slice(0, 2);
       tileBuilder(q, q.tag('🧩 Kirakó') + `<p class="qtitle">${IDO_IC[x.t]} ${IDO[x.t]} · Rakd ki: <b>${SZ[p]}</b> + <b>${esc(x.v)}</b></p>`,
         ls, f, () => why(x, p), other);
+    },
+    // 6. Hibás párok: hat „személy + alak” párból koppintsd meg azokat, amelyek nem illenek össze
+    parok(x, q) {
+      const rows = SZ.map((s, p) => ({ p, f: shown(IGE[x.v][x.t][p]), bad: false }));
+      for (const r of shuffle(rows).slice(0, 1 + (Math.random() * 3 | 0))) {
+        const alt = shuffle(SZ.map((_, i) => shown(IGE[x.v][x.t][i]))).find(f => !accepts(x.v, x.t, r.p).includes(f));
+        if (alt) { r.f = alt; r.bad = true; }
+      }
+      const sel = new Set();
+      q.card.innerHTML = q.tag('🔎 Hibás párok') + `<p class="qtitle">${IDO_IC[x.t]} ${IDO[x.t]} · Koppints az összes <b>hibás</b> párra, ahol a szó nem illik a személyhez!</p>
+        <div class="opts g2">${rows.map((r, i) => `<button class="opt sm" data-i="${i}"><span style="color:var(--soft)">${SZ[r.p]}</span> ${esc(r.f)}</button>`).join('')}</div>
+        <button class="nextbtn" id="p-ok">✔ Kész</button>`;
+      q.card.querySelectorAll('.opt').forEach(b => b.onclick = () => { SND.tap(); const i = +b.dataset.i; sel.has(i) ? sel.delete(i) : sel.add(i); b.classList.toggle('sel'); });
+      $('#p-ok').onclick = () => {
+        let ok = true;
+        q.card.querySelectorAll('.opt').forEach(b => {
+          const i = +b.dataset.i, r = rows[i];
+          if (r.bad !== sel.has(i)) ok = false;
+          b.classList.remove('sel'); b.classList.add(r.bad === sel.has(i) ? 'ok' : 'bad');
+          if (r.bad) b.innerHTML = `<span style="color:var(--soft)">${SZ[r.p]}</span> <s>${esc(r.f)}</s> → ${esc(shown(IGE[x.v][x.t][r.p]))}`;
+        });
+        $('#p-ok').remove();
+        q.done(ok, why(x));
+      };
     }
   };
 
@@ -78,8 +102,10 @@
   registerModule({
     id: 'ige', name: 'Igeragozó', emoji: '🐴', color: '#ea580c',
     intro: 'Itt az igéket ragozzuk: ki csinálja, és mikor? Én olvasok, te olvastál, ő olvasna… Minden feladat után megmutatom a teljes ragozást.',
-    kinds: ['ki', 'ido', 'ragozd', 'idogep', 'kirako'],
-    pts: { ki: 10, ido: 10, ragozd: 14, idogep: 18, kirako: 20 },
+    kinds: ['ki', 'ido', 'ragozd', 'idogep', 'kirako', 'parok'],
+    // szintenként ezek közül sorsol; a kirakó már az 1. szinten is előjön
+    pickKind: [['ragozd', 'kirako', 'ragozd', 'ki', 'ido'], ['ragozd', 'kirako', 'parok'], ['kirako', 'idogep', 'parok'], ['kirako', 'idogep', 'parok'], ['kirako', 'parok', 'idogep']],
+    pts: { ki: 10, ido: 10, ragozd: 14, idogep: 18, kirako: 20, parok: 18 },
     label: id => byId[id].v + ' (' + IDO[byId[id].t] + ')',
     ask: (id, kind, q) => kinds[kind](byId[id], q),
     rooms: [

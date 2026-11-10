@@ -4,6 +4,7 @@
 const BARNS = [
   { id: 'jly', name: 'J/LY pajta', sub: 'mosoly vagy mosoj?', mods: ['jly'], wall: '#dc2626', roof: '#7f1d1d', animal: '🐔' },
   { id: 'rag', name: 'Ragozó pajta', sub: 'igék, képzők, jelek, ragok', mods: ['ige', 'toldalek'], wall: '#2563eb', roof: '#1e3a8a', animal: '🐴' },
+  { id: 'kiejt', name: 'Kiejtés-csapda pajta', sub: 'szaladjon, nem szalaggyon!', mods: ['kiejt'], wall: '#0d9488', roof: '#134e4a', animal: '🦆' },
   { id: 'soon1', name: 'Új pajta', sub: 'hamarosan épül…', mods: [], wall: '#a16207', roof: '#713f12', animal: '🐑' }
 ];
 const barnOf = modId => BARNS.find(b => b.mods.includes(modId));
